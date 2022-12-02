@@ -53,7 +53,10 @@ class Solution(object):
 
 class TestCase(unittest.TestCase):
     def test_function_0(self):
-        assert Solution().count_calories("2022/resources/day01_calorie_counting_test.txt") == 45000
+        assert Solution().count_calories("01_calorie_counting/day01_calorie_counting_test.txt") == 45000
 
     def test_function_1(self):
-        assert Solution().count_calories("2022/resources/day01_calorie_counting.txt") == 208437
+        assert Solution().count_calories("01_calorie_counting/day01_calorie_counting.txt") == 208437
+
+
+

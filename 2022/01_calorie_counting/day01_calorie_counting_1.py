@@ -11,7 +11,6 @@ import unittest
 import os
 
 class Solution(object):
-    #TODO: organize the code files so each day is in its own folder
     #TODO: add a template
     #TODO: simplify and improve space complexity
     def count_calories(self, file_name):
@@ -53,7 +52,7 @@ class Solution(object):
 
 class TestCase(unittest.TestCase):
     def test_function_0(self):
-        assert Solution().count_calories("2022/resources/day01_calorie_counting_test.txt") == 24000
+        assert Solution().count_calories("01_calorie_counting/day01_calorie_counting_test.txt") == 24000
 
     def test_function_1(self):
-        assert Solution().count_calories("2022/resources/day01_calorie_counting.txt") == 69795
+        assert Solution().count_calories("01_calorie_counting/day01_calorie_counting.txt") == 69795
