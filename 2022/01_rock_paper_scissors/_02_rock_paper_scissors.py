@@ -39,7 +39,9 @@ class Solution(object):
                                 "Z": 3}
         score = 0
         with open(file_name) as f:
+            i = 0
             for line in f:
+                i+=1
                 print(line)
 
                 line_cleaned = line.replace("\n","")
@@ -54,6 +56,7 @@ class Solution(object):
                     score += participation_scores[my_move]
 
         print(score)
+        print("lines:", i)
         return score
 
 
