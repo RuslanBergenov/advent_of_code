@@ -48,6 +48,7 @@ class Solution(object):
         max_calories = 0
         for elfs_calories in elves_and_calories:
             max_calories = max(max_calories, sum(elfs_calories))
+        print(max_calories)
         return max_calories
 
 
@@ -55,3 +56,6 @@ class Solution(object):
 class TestCase(unittest.TestCase):
     def test_function_0(self):
         assert Solution().count_calories("2022/resources/day01_calorie_counting_test.txt") == 24000
+
+    def test_function_1(self):
+        assert Solution().count_calories("2022/resources/day01_calorie_counting.txt") == 69795
