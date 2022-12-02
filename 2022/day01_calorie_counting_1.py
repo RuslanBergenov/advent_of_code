@@ -20,10 +20,6 @@ class Solution(object):
         """
         elves_and_calories = []
 
-        file_path = os.path.join(
-            os.path.join(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '2022'), 'resources'),
-            file_name)
-
         file_path = os.path.join(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), file_name))
 
         file = open(file_path, "r")
