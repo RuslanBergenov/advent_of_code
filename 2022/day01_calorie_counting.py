@@ -36,8 +36,7 @@ class Solution(object):
                 elves_and_calories.append(elf_calories)
                 elf_calories = []
             else:
-                elf_calories.append(calorie_amount)
-                # elves_and_calories.append(int(calorie_amount.replace("/n", "")))
+                elf_calories.append(int(calorie_amount.replace("/n", "")))
 
         # The "for-else" design
         # https://stackoverflow.com/questions/10140281/how-to-find-out-whether-a-file-is-at-its-eof
