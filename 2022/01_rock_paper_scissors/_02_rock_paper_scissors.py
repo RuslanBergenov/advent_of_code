@@ -39,24 +39,22 @@ class Solution(object):
                                 "Z": 3}
         score = 0
         with open(file_name) as f:
-            i = 0
-            for line in f:
-                i += 1
-                print(line)
 
+            for line in f:
                 line_cleaned = line.replace("\n", "")
-                if line_cleaned in winning_combinations:
-                    score += 6
                 my_move = line_cleaned.split()[1]
                 opponents_move_translated = moves_mapping[line_cleaned.split()[0]]
 
                 score += participation_scores[my_move]
 
-                if my_move == opponents_move_translated:
-                    score += participation_scores[my_move]
+                if line_cleaned in winning_combinations:
+                    score += 6
+
+                elif my_move == opponents_move_translated:
+                    score += 3
 
         print(score)
-        print("lines:", i)
+
         return score
 
 
@@ -66,4 +64,4 @@ class TestCase(unittest.TestCase):
         assert Solution().rock_paper_scissors("02_input_test.txt") == 15
 
     def test_prod(self):
-        assert Solution().rock_paper_scissors("02_input.txt") == 12992
+        assert Solution().rock_paper_scissors("02_input.txt") == 13268
