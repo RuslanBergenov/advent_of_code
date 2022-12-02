@@ -11,7 +11,6 @@ import unittest
 import os
 
 class Solution(object):
-    #TODO: add a template
     #TODO: simplify and improve space complexity
     def count_calories(self, file_name):
         """
