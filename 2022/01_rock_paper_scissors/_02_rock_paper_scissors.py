@@ -22,8 +22,8 @@ B Z
 C X
 """
 
-
 import unittest
+
 
 class Solution(object):
     def rock_paper_scissors(self, file_name):
@@ -41,28 +41,23 @@ class Solution(object):
         with open(file_name) as f:
             i = 0
             for line in f:
-                i+=1
+                i += 1
                 print(line)
 
-                line_cleaned = line.replace("\n","")
+                line_cleaned = line.replace("\n", "")
                 if line_cleaned in winning_combinations:
                     score += 6
                 my_move = line_cleaned.split()[1]
-                oppenents_move_translated = moves_mapping[line_cleaned.split()[0]]
+                opponents_move_translated = moves_mapping[line_cleaned.split()[0]]
 
                 score += participation_scores[my_move]
 
-                if my_move == oppenents_move_translated:
+                if my_move == opponents_move_translated:
                     score += participation_scores[my_move]
 
         print(score)
         print("lines:", i)
         return score
-
-
-
-
-
 
 
 class TestCase(unittest.TestCase):
@@ -72,4 +67,3 @@ class TestCase(unittest.TestCase):
 
     def test_prod(self):
         assert Solution().rock_paper_scissors("02_input.txt") == 12992
-
