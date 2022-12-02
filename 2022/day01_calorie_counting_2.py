@@ -11,7 +11,6 @@ import unittest
 import os
 
 class Solution(object):
-    #TODO: refactor so it's several (2?) smaller functions
     def count_calories(self, file_name):
         """
 

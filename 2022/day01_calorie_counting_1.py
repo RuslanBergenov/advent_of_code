@@ -11,7 +11,9 @@ import unittest
 import os
 
 class Solution(object):
-    #TODO: refactor so it's several (2?) smaller functions
+    #TODO: organize the code files so each day is in its own folder
+    #TODO: add a template
+    #TODO: simplify and improve space complexity
     def count_calories(self, file_name):
         """
 
