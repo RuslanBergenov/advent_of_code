@@ -42,8 +42,8 @@ class Solution(object):
         # The "for-else" design
         # https://stackoverflow.com/questions/10140281/how-to-find-out-whether-a-file-is-at-its-eof
         # https://docs.python.org/2/tutorial/controlflow.html#break-and-continue-statements-and-else-clauses-on-loops
-        # else:
-        #     elves_and_calories.append(elf_calories)
+        else:
+            elves_and_calories.append(elf_calories)
         file.close()
 
         max_calories = 0
