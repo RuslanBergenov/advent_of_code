@@ -40,9 +40,6 @@ class Solution(object):
 
                 rucksack_left = line[0:length//2]
                 rucksack_right = line[length//2:length]
-                len_rucksack_left = len(rucksack_left)
-                len_rucksack_right = len(rucksack_right)
-                assert len_rucksack_left + len_rucksack_right == length or len_rucksack_left + len_rucksack_right + 1 == length
                 list_left=[*rucksack_left]
                 list_right=[*rucksack_right]
                 set_left = set(list_left)
