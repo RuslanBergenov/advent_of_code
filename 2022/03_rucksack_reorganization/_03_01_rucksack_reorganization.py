@@ -2,7 +2,7 @@
 https://adventofcode.com/2022/day/3
 Day 3
 Read in line
-Split line into town parts
+Split line into 2 parts
 Create two sets
 Set intersect
 ASCII
@@ -10,7 +10,7 @@ Convert to score(s)
 Increment running total
 
 
-If Ord(X)
+If ord(X)
 
 65-90?
 65-38=27
@@ -38,10 +38,10 @@ class Solution(object):
             for line in f:
                 length = len(line)
 
-                rucksack_left = line[0:length//2]
-                rucksack_right = line[length//2:length]
-                list_left=[*rucksack_left]
-                list_right=[*rucksack_right]
+                rucksack_left = line[0:length // 2]
+                rucksack_right = line[length // 2:length]
+                list_left = [*rucksack_left]
+                list_right = [*rucksack_right]
                 set_left = set(list_left)
                 set_right = set(list_right)
 
@@ -51,7 +51,7 @@ class Solution(object):
                     ascii_code = ord(item)
 
                     if 97 <= ascii_code <= 122:
-                        result += (ascii_code-96)
+                        result += (ascii_code - 96)
                     elif 65 <= ascii_code <= 90:
                         result += (ascii_code - 38)
         print(f"result: {result}")

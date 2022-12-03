@@ -1,31 +1,6 @@
 """
-https://adventofcode.com/2022/day/3
-Day 3
-Read in line
-Split line into town parts
-Create two sets
-Set intersect
-ASCII
-Convert to score(s)
-Increment running total
-
-
-If Ord(X)
-
-65-90?
-65-38=27
-
-97-122?
-97-96=1
-
-What if length of input is odd number???
-"""
-
-"""
 Docs
-https://www.geeksforgeeks.org/python-split-string-into-list-of-characters/
-
-https://medium.com/interview-buddy/handling-ascii-character-in-python-58993859c38e
+https://stackoverflow.com/questions/18422127/python-read-text-file-from-second-line-to-fifteenth
 """
 
 import unittest
@@ -63,7 +38,6 @@ class Solution(object):
                         result += (ascii_code - 96)
                     elif 65 <= ascii_code <= 90:
                         result += (ascii_code - 38)
-
 
 
 class TestCase(unittest.TestCase):
