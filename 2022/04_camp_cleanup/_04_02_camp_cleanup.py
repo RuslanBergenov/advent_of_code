@@ -1,7 +1,6 @@
-
 """
 Docs:
-
+https://stackoverflow.com/questions/6821156/how-to-find-range-overlap-in-python
 """
 
 import unittest
@@ -15,8 +14,6 @@ class Solution(object):
 
                 pair = line.split(",")
 
-                pair.sort()
-
                 elf_1 = pair[0]
                 elf_2 = pair[1]
 
@@ -26,8 +23,12 @@ class Solution(object):
                 a, b = int(elf_1_bounds[0]), int(elf_1_bounds[1])
                 y, z = int(elf_2_bounds[0]), int(elf_2_bounds[1])
 
-                if b >= y:
-                    print(pair)
+                range_a = set(range(a, b + 1))
+                range_b = set(range(y, z + 1))
+
+                intersection = range_a.intersection(range_b)
+
+                if len(intersection) > 0:
                     result += 1
 
         print(f"result: {result}")
@@ -43,5 +44,4 @@ class TestCase(unittest.TestCase):
         assert Solution().camp_cleanup("04_input_test_2.txt") == 0
 
     def test_prod(self):
-        assert Solution().camp_cleanup("04_input.txt") == 917
-        # wrong: 846, 917, 157
+        assert Solution().camp_cleanup("04_input.txt") == 827
