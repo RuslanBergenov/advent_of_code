@@ -20,6 +20,7 @@ class Solution(object):
     def supply_stacks(self, file_name):
         result = ""
 
+        # read in data and create stacks
         with open(file_name) as f:
             rows = []
             for line in f:
@@ -41,16 +42,19 @@ class Solution(object):
         for stack in stacks:
             stack.reverse()
 
+        # move crates
         with open(file_name) as f:
             for line in islice(f, len(rows)+2, None):
                 number_of_crates = int(re.search(r'move (.*?) from', line).group(1))
                 source = int(re.search(r'from (.*?) to', line).group(1))
                 destination = int(re.search(r'to (.*?)$', line).group(1))
-
+                temp = []
                 for crate in range(0, number_of_crates):
-                    stacks[destination-1].append(stacks[source-1].pop())
+                    temp.append(stacks[source - 1].pop())
+                temp.reverse()
+                stacks[destination-1].extend(temp)
 
-
+        # create result
         for stack in stacks:
             result += stack.pop()
         print(f"result: {result}")
@@ -59,7 +63,7 @@ class Solution(object):
 class TestCase(unittest.TestCase):
 
     def test_dev(self):
-        assert Solution().supply_stacks("05_input_test.txt") == "CMZ"
+        assert Solution().supply_stacks("05_input_test.txt") == "MCD"
 
     def test_prod(self):
-        assert Solution().supply_stacks("05_input.txt") == "FCVRLMVQP"
+        assert Solution().supply_stacks("05_input.txt") == "RWLWGJGFD"
