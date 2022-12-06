@@ -16,7 +16,7 @@ from itertools import islice
 
 import unittest
 
-
+#TODO: split into multiple functions
 class Solution(object):
     def supply_stacks(self, file_name):
         result = ""
