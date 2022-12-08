@@ -20,7 +20,7 @@ def solution(file_name):
     result = 0
     for irow, vrow in enumerate(forest):
         for itree, vtree in enumerate(forest[irow]):
-            if irow == 0 or irow == len(forest) - 1 or itree == 0 or itree == len(row) - 1:
+            if irow == 0 or irow == len(forest) - 1 or itree == 0 or itree == len(vrow) - 1:
                 result += 1
 
             else:
@@ -35,8 +35,12 @@ def solution(file_name):
                 for ir_below in range(irow + 1, len(forest)):
                     nb_below.append(forest[ir_below][itree])
 
-                if vtree > max(nb_left) or vtree > max(nb_right) or vtree > max(nb_above) or vtree > max(nb_below):
-                    result += 1
+                try:
+                    if vtree > max(nb_left) or vtree > max(nb_right) or vtree > max(nb_above) or vtree > max(nb_below):
+                        result += 1
+                except Exception as e:
+                    print(e)
+
 
     return result
 
@@ -47,4 +51,4 @@ class TestCase(unittest.TestCase):
         self.assertEqual(21, solution("08_input_test.txt"))
 
     def test_prod(self):
-        self.assertEqual(21, solution("08_input.txt"))
+        self.assertEqual(1787, solution("08_input.txt"))
