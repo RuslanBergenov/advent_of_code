@@ -36,11 +36,14 @@ class Solution(object):
 
         folders_names_stack = []
         folders_stack = []
-
+        parent_folder_name = None
         with open(file_name) as f:
 
             for line in f:
-                if "$ cd" in line:
+                if "$ cd" in line and line != "$ cd ..\n":
+
+                    if len(folders_stack) > 0:
+                        parent_folder_name = current_folder_name
 
                     current_folder_name = re.match(r'\$ cd (.?)$', line).group(1)
 
@@ -54,7 +57,6 @@ class Solution(object):
                     subfolder_name = re.match(r'dir (.?)$', line).group(1)
                     subfolder = {subfolder_name: []}
                     current_folder[current_folder_name].append(subfolder)
-                    folders_names_stack.append(subfolder_name)
                 elif "$ cd .." in line:
                     folders_stack.pop()
                     current_folder = folders_stack[-1]
@@ -62,7 +64,7 @@ class Solution(object):
                     file_size =  re.match(r'^[0-9]+', line).group()
                     current_folder[current_folder_name].append(int(file_size))
 
-
+#TODO: how do I merge the dictionaries?
 
 
 class TestCase(unittest.TestCase):
