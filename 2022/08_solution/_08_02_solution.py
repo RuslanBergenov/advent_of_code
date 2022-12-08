@@ -31,39 +31,31 @@ def solution(file_name):
             for ir_below in range(irow + 1, len(forest)):
                 nb_below.append(forest[ir_below][itree])
 
-            # current_tree_score = 0
             #  left and above - reverse
             score_left = 0
             for index_neighbor, value_neighbor in enumerate(nb_left[::-1]):
-                if vtree > value_neighbor:
-                    score_left += 1
-                elif vtree <= value_neighbor:
-                    score_left += 1
+                score_left += 1
+                if vtree <= value_neighbor:
                     break
 
             score_above = 0
             for index_neighbor, value_neighbor in enumerate(nb_above[::-1]):
-                if vtree > value_neighbor:
-                    score_above += 1
-                elif vtree <= value_neighbor:
-                    score_above += 1
+                score_above += 1
+                if vtree <= value_neighbor:
                     break
 
             score_right = 0
             for index_neighbor, value_neighbor in enumerate(nb_right):
-                if vtree > value_neighbor:
-                    score_right += 1
-                elif vtree <= value_neighbor:
-                    score_right += 1
+                score_right += 1
+                if vtree <= value_neighbor:
                     break
 
             score_below = 0
             for index_neighbor, value_neighbor in enumerate(nb_below):
-                if vtree > value_neighbor:
-                    score_below += 1
-                elif vtree <= value_neighbor:
-                    score_below += 1
+                score_below += 1
+                if vtree <= value_neighbor:
                     break
+
             current_tree_score = score_left * score_above * score_right * score_below
             result = max(result, current_tree_score)
 
