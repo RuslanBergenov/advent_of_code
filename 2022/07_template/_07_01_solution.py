@@ -15,63 +15,70 @@ https://stackoverflow.com/questions/180986/what-is-the-difference-between-re-sea
 
 import unittest
 import re
-
-class Solution(object):
-    # def read_input(self, file_name):
-    #     #     lines = []
-    #     #     with open(file_name) as f:
-    #     #         for line in f:
-    #     #             lines.append(line)
-    #     #     return lines
-    #     # #
-    #     # # def calculate_size(self, line):
-    #     # #     if "$ dir" in line:
-    #     # #     elif line == "$ cd ..":
-    #     # #     elif
+import copy
 
 
 
 
-    def calculate_total_sizes(self, file_name):
 
-        folders_names_stack = []
+def calculate_file_sizes(file_name):
+
+    with open(file_name) as f:
+
+        folders_and_file_sizes = {}
         folders_stack = []
-        parent_folder_name = None
-        with open(file_name) as f:
 
-            for line in f:
-                if "$ cd" in line and line != "$ cd ..\n":
+        for line in f:
 
-                    if len(folders_stack) > 0:
-                        parent_folder_name = current_folder_name
+            if "$ cd" in line and line != "$ cd ..\n":
+                if len(folders_stack) == 0:
+                    current_folder_path = "root"
 
+                else:
                     current_folder_name = re.match(r'\$ cd (.?)$', line).group(1)
+                    current_folder_path = folders_stack[-1] + "/" + current_folder_name
 
-                    current_folder = {current_folder_name: []}
+                folders_and_file_sizes.update({current_folder_path: 0})
+                folders_stack.append(current_folder_path)
 
-                    folders_stack.append(current_folder)
-                    folders_names_stack.append(current_folder_name)
-                elif "$ ls" in line:
-                    continue
-                elif "dir" in line:
-                    subfolder_name = re.match(r'dir (.?)$', line).group(1)
-                    subfolder = {subfolder_name: []}
-                    current_folder[current_folder_name].append(subfolder)
-                elif "$ cd .." in line:
-                    folders_stack.pop()
-                    current_folder = folders_stack[-1]
-                elif bool(re.match(r'^[0-9]+', line)):
-                    file_size =  re.match(r'^[0-9]+', line).group()
-                    current_folder[current_folder_name].append(int(file_size))
+            elif "$ cd .." in line:
+                folders_stack.pop()
 
-#TODO: how do I merge the dictionaries?
+            elif bool(re.match(r'^[0-9]+', line)):
+                file_size =  re.match(r'^[0-9]+', line).group()
+                folders_and_file_sizes[current_folder_path] += int(file_size)
+
+        return folders_and_file_sizes
+
+def calculate_total_folder_sizes(folders_and_file_sizes):
+    total_folder_sizes = copy.deepcopy(folders_and_file_sizes)
+    for folder_path, size in folders_and_file_sizes.items():
+
+        for potential_subfolder_path, size in folders_and_file_sizes.items():
+            if folder_path!=potential_subfolder_path:
+                if potential_subfolder_path.startswith(folder_path):
+                    total_folder_sizes[folder_path] += folders_and_file_sizes[potential_subfolder_path]
+    return total_folder_sizes
+
+
+def calculate_answer(total_folder_sizes):
+    ans = 0
+    for key, value in total_folder_sizes.items():
+        if value <= 100000:
+            ans+= value
+    return ans
+
 
 
 class TestCase(unittest.TestCase):
 
     def test_dev(self):
-        input=Solution().calculate_total_sizes("07_input_test.txt")
-        assert Solution().calculate_total_sizes(input) == 0
-    #
-    # def test_prod(self):
-    #     assert Solution().solution("07_input.txt") == 1
+        input = calculate_file_sizes("07_input_test.txt")
+        total_folder_sizes = calculate_total_folder_sizes(input)
+        self.assertEqual(95437, calculate_answer(total_folder_sizes))
+
+
+    def test_prod(self):
+        input = calculate_file_sizes("07_input.txt")
+        total_folder_sizes = calculate_total_folder_sizes(input)
+        self.assertEqual(95437, calculate_answer(total_folder_sizes))
