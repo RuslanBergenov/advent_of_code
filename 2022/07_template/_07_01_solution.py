@@ -35,7 +35,13 @@ def calculate_file_sizes(file_name):
                     current_folder_path = "root"
 
                 else:
-                    current_folder_name = re.match(r'\$ cd (.?)$', line).group(1)
+                    try:
+                        current_folder_name = re.match(r'\$ cd (.?)$', line.replace("\n", "")).group()
+
+                    except Exception as e:
+                        print(e)
+                        print(line)
+                        current_folder_name = line.replace("\n", "").split()[2]
                     current_folder_path = folders_stack[-1] + "/" + current_folder_name
 
                 folders_and_file_sizes.update({current_folder_path: 0})
