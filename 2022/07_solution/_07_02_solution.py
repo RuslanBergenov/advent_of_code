@@ -80,4 +80,4 @@ class TestCase(unittest.TestCase):
     def test_prod(self):
         input = calculate_file_sizes("07_input.txt")
         total_folder_sizes = calculate_total_folder_sizes(input)
-        self.assertEqual(95437, calculate_answer(total_folder_sizes))
+        self.assertEqual(272298, calculate_answer(total_folder_sizes))
