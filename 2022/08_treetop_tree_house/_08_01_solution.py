@@ -10,7 +10,6 @@ Docs:
 import unittest
 
 
-
 def solution(file_name):
 
     forest = []
@@ -40,7 +39,6 @@ def solution(file_name):
                         result += 1
                 except Exception as e:
                     print(e)
-
 
     return result
 

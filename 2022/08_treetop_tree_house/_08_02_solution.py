@@ -10,7 +10,6 @@ https://stackoverflow.com/questions/529424/traverse-a-list-in-reverse-order-in-p
 import unittest
 
 
-
 def solution(file_name):
 
     forest = []
