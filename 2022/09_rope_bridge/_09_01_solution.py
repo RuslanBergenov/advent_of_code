@@ -41,9 +41,9 @@ class Solution(object):
                     direction = line.split()[0]
                     moves_number = int(line.split()[1])
 
-                    for move in range(moves_number):
+                    if direction == "R":
 
-                        if direction == "R":
+                        for move in range(moves_number):
 
                             H_col += 1
 
@@ -54,8 +54,14 @@ class Solution(object):
                                     T_row+=1
                                 elif H_row - T_row < 0:
                                     T_row -= 1
+                            # board = copy.deepcopy(board_original_state)
 
-                        elif direction == "U":
+                            board[H_row][H_col] = "H"
+                            board[T_row][T_col] = "T"
+                            board_tail_visited[T_row][T_col] = 1
+
+                    elif direction == "U":
+                        for move in range(moves_number):
 
                             H_row -= 1
 
@@ -68,7 +74,14 @@ class Solution(object):
                                 elif H_col - T_col < 0:
                                     T_col-=1
 
-                        elif direction == "L":
+                            # board = copy.deepcopy(board_original_state)
+
+                            board[H_row][H_col] = "H"
+                            board[T_row][T_col] = "T"
+                            board_tail_visited[T_row][T_col] = 1
+
+                    elif direction == "L":
+                        for move in range(moves_number):
 
                             H_col -= 1
 
@@ -80,7 +93,14 @@ class Solution(object):
                                 elif H_row - T_row < 0:
                                     T_row -= 1
 
-                        elif direction == "D":
+                            # board = copy.deepcopy(board_original_state)
+
+                            board[H_row][H_col] = "H"
+                            board[T_row][T_col] = "T"
+                            board_tail_visited[T_row][T_col] = 1
+
+                    elif direction == "D":
+                        for move in range(moves_number):
 
                             H_row += 1
 
@@ -93,11 +113,13 @@ class Solution(object):
                                 elif H_col - T_col < 0:
                                     T_col-=1
 
-                        board = copy.deepcopy(board_original_state)
+                            # board = copy.deepcopy(board_original_state)
 
-                        board[H_row][H_col] = "H"
-                        board[T_row][T_col] = "T"
-                        board_tail_visited[T_row][T_col] = 1
+                            board[H_row][H_col] = "H"
+                            board[T_row][T_col] = "T"
+                            board_tail_visited[T_row][T_col] = 1
+
+
 
                 except Exception as e:
                     print(e)
@@ -110,7 +132,7 @@ class Solution(object):
 class TestCase(unittest.TestCase):
 
     def test_dev(self):
-        assert Solution().fuction("09_input_test.txt", 12) == 13
+        self.assertEqual(13, Solution().fuction("09_input_test.txt", 12))
 
     def test_prod(self):
-        assert self.assertEqual(1,  Solution().fuction("09_input.txt", 1000))
+        self.assertEqual(6181,  Solution().fuction("09_input.txt", 1000))
