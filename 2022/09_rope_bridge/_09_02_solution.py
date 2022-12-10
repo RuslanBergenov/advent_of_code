@@ -22,7 +22,7 @@ class Solution(object):
         for i in range(board_size):
             row = []
             for j in range(board_size):
-                row.append(0)
+                row.append(".")
             board.append(row)
         board_tail_visited = copy.deepcopy(board)
         board_original_state = copy.deepcopy(board)
@@ -33,16 +33,46 @@ class Solution(object):
         for i in range(10):
             coordinates.append([s, s])
 
-
         def move_right(leader_row, leader_column, follower_row, follower_column):
-
-            if leader_column - follower_column > 1:
+            if leader_column - follower_column > 1 or abs(leader_row - follower_row)>1:
                 follower_column += 1
 
                 if leader_row - follower_row > 0:
                     follower_row += 1
                 elif leader_row - follower_row < 0:
                     follower_row -= 1
+            return follower_row, follower_column
+
+        def move_up(leader_row, leader_column, follower_row, follower_column):
+            if leader_row - follower_row < - 1 or abs(leader_column - follower_column)>1:
+                follower_row -= 1
+
+                if leader_column - follower_column > 0:
+                    follower_column += 1
+
+                elif leader_column - follower_column < 0:
+                    follower_column -= 1
+            return follower_row, follower_column
+
+        def move_left(leader_row, leader_column, follower_row, follower_column):
+            if leader_column - follower_column < -1 or abs(leader_row - follower_row)>1:
+                    follower_column -= 1
+
+                    if leader_row - follower_row > 0:
+                        follower_row += 1
+                    elif leader_row - follower_row < 0:
+                        follower_row -= 1
+            return follower_row, follower_column
+
+        def move_down(leader_row, leader_column, follower_row, follower_column):
+            if leader_row - follower_row > 1 or abs(leader_column - follower_column)>1:
+                    follower_row += 1
+
+                    if leader_column - follower_column > 0:
+                        follower_column += 1
+
+                    elif leader_column - follower_column < 0:
+                        follower_column -= 1
             return follower_row, follower_column
 
         line_number = 0
@@ -63,7 +93,7 @@ class Solution(object):
                                 coordinates[index][0], coordinates[index][1] = move_right(coordinates[index-1][0], coordinates[index-1][1], coordinates[index][0], coordinates[index][1])
 
                             board = copy.deepcopy(board_original_state)
-                            # for index, value in enumerate(coordinates):
+
                             for index, value in enumerate(coordinates[::-1]):
                                 board[value[0]][value[1]] = 9-index
 
@@ -71,25 +101,23 @@ class Solution(object):
                             board_tail_visited[coordinates[9][0]][coordinates[9][1]] = 1
 
                     elif direction == "U":
-                        # for move in range(moves_number):
-                        raise NotImplementedError
+                        for move in range(moves_number):
 
-                            # H_row -= 1
-                            #
-                            # if H_row - T_row < - 1:
-                            #     T_row -= 1
-                            #
-                            #     if H_col - T_col > 0:
-                            #         T_col += 1
-                            #
-                            #     elif H_col - T_col < 0:
-                            #         T_col -= 1
-                            #
-                            # # board = copy.deepcopy(board_original_state)
-                            #
-                            # board[H_row][H_col] = "H"
-                            # board[T_row][T_col] = "T"
-                            # board_tail_visited[T_row][T_col] = 1
+                            coordinates[0][0] -= 1
+
+                            for index, row_and_col in enumerate(coordinates):
+                                coordinates[index][0], coordinates[index][1] = move_up(coordinates[index - 1][0],
+                                                                                          coordinates[index - 1][1],
+                                                                                          coordinates[index][0],
+                                                                                          coordinates[index][1])
+
+                            board = copy.deepcopy(board_original_state)
+
+                            for index, value in enumerate(coordinates[::-1]):
+                                board[value[0]][value[1]] = 9-index
+
+                            board[coordinates[0][0]][coordinates[0][1]] = "H"
+                            board_tail_visited[coordinates[9][0]][coordinates[9][1]] = 1
 
                     elif direction == "L":
                         raise NotImplementedError
