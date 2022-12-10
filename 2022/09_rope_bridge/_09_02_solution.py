@@ -29,34 +29,21 @@ class Solution(object):
 
         s = board_size // 2
 
-        H_row = H_col = _1_row = _1_col = _2_row = _2_col = _3_row = _3_col = _4_row = _4_col = _5_row = _5_col = _6_row = _6_col = _7_row = _7_col = _8_row = _8_col = _9_row = _9_col = s
-
-        board[H_row][H_col] = "H"
-        board_tail_visited[_9_row][_9_col] = 1
-
-        coordinates = {
-            "H": {"row": s, "col": s},
-            "1": {"row": s, "col": s},
-            "2": {"row": s, "col": s},
-            "3": {"row": s, "col": s},
-            "4": {"row": s, "col": s},
-            "5": {"row": s, "col": s},
-            "6": {"row": s, "col": s},
-            "7": {"row": s, "col": s},
-            "8": {"row": s, "col": s},
-            "9": {"row": s, "col": s}}
+        coordinates = []
+        for i in range(10):
+            coordinates.append([s, s])
 
 
-        def calculate_tail_coordinates_while_moving_right(head_row, head_column, tail_row, tail_column):
+        def move_right(leader_row, leader_column, follower_row, follower_column):
 
-            if head_column - tail_column > 1:
-                tail_column += 1
+            if leader_column - follower_column > 1:
+                follower_column += 1
 
-                if head_row - tail_row > 0:
-                    tail_row += 1
-                elif head_row - tail_row < 0:
-                    tail_row -= 1
-            return tail_row, tail_column
+                if leader_row - follower_row > 0:
+                    follower_row += 1
+                elif leader_row - follower_row < 0:
+                    follower_row -= 1
+            return follower_row, follower_column
 
         line_number = 0
         with open(file_name) as f:
@@ -70,17 +57,18 @@ class Solution(object):
 
                         for move in range(moves_number):
 
-                            H_col += 1
+                            coordinates[0][1] += 1
 
-                            for index, row_and_col in enumerate(coordinates[1:]):
-                                row_and_col[0], row_and_col[1] = calculate_tail_coordinates_while_moving_right(coordinates[index-1][0], coordinates[index-1][1], row_and_col[0], row_and_col[1])
+                            for index, row_and_col in enumerate(coordinates):
+                                coordinates[index][0], coordinates[index][1] = move_right(coordinates[index-1][0], coordinates[index-1][1], coordinates[index][0], coordinates[index][1])
 
                             board = copy.deepcopy(board_original_state)
-                            for index, value in enumerate(coordinates[::1]):
-                                board[value[0]][value[1]] = index
+                            # for index, value in enumerate(coordinates):
+                            for index, value in enumerate(coordinates[::-1]):
+                                board[value[0]][value[1]] = 9-index
 
-                            board[H_row][H_col] = "H"
-                            board_tail_visited[_9_row][_9_col] = 1
+                            board[coordinates[0][0]][coordinates[0][1]] = "H"
+                            board_tail_visited[coordinates[9][0]][coordinates[9][1]] = 1
 
                     elif direction == "U":
                         # for move in range(moves_number):
@@ -156,8 +144,11 @@ class Solution(object):
 
 class TestCase(unittest.TestCase):
 
-    def test_dev(self):
-        self.assertEqual(13, Solution().fuction("09_input_test_2.txt", 12))
+    def test_dev_0(self):
+        self.assertEqual(13, Solution().fuction("09_input_test.txt", 12))
 
-    def test_prod(self):
-        self.assertEqual(6181, Solution().fuction("09_input.txt", 1000))
+    # def test_dev_1(self):
+    #     self.assertEqual(13, Solution().fuction("09_input_test_2.txt", 12))
+    #
+    # def test_prod(self):
+    #     self.assertEqual(6181, Solution().fuction("09_input.txt", 1000))
