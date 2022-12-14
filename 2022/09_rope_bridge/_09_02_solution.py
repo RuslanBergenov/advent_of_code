@@ -16,25 +16,24 @@ import copy
 
 class Solution(object):
 
-    def fuction(self, file_name, board_size, mid_starting_point=True):
+    def fuction(self, file_name, board_number_of_rows, board_row_length, starting_point_row, starting_point_column):
         board = []
 
-        for i in range(board_size):
+        for i in range(board_number_of_rows):
             row = []
-            for j in range(board_size):
+            for j in range(board_row_length):
                 row.append(0)
             board.append(row)
         board_tail_visited = copy.deepcopy(board)
         board_original_state = copy.deepcopy(board)
 
         coordinates = []
-        if mid_starting_point:
-            x_start = y_start = board_size // 2
-        else:
-            x_start = board_size-1
-            y_start = 0
+
+        x_start = starting_point_row
+        y_start = starting_point_column
+
         for i in range(10):
-            coordinates.append([5, 0])
+            coordinates.append([x_start, y_start])
 
         def move_right(leader_row, leader_column, follower_row, follower_column):
             if leader_column - follower_column > 1 or abs(leader_row - follower_row) > 1:
@@ -186,10 +185,11 @@ class Solution(object):
 class TestCase(unittest.TestCase):
 
     def test_dev_0(self):
-        self.assertEqual(1, Solution().fuction("09_input_test.txt", board_size=6, mid_starting_point=False))
+        self.assertEqual(1, Solution().fuction(file_name="09_input_test.txt", board_number_of_rows=5, board_row_length=6,
+                                               starting_point_row=4, starting_point_column=0))
 
     # def test_dev_1(self):
-    #     self.assertEqual(36, Solution().fuction("09_input_test_2.txt", 12))
+    #     self.assertEqual(36, Solution().fuction("09_input_test_2.txt", 20))
     #
     # def test_prod(self):
     #     self.assertEqual(6181, Solution().fuction("09_input.txt", 1000))
