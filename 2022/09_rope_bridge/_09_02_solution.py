@@ -25,6 +25,7 @@ class Solution(object):
                 row.append(0)
             board.append(row)
         board_tail_visited = copy.deepcopy(board)
+        board[starting_point_row][starting_point_column] = "s"
         board_original_state = copy.deepcopy(board)
 
         coordinates = []
@@ -34,6 +35,10 @@ class Solution(object):
 
         for i in range(10):
             coordinates.append([x_start, y_start])
+
+        board[coordinates[0][0]][coordinates[0][1]] = "H"
+
+        pass
 
         def move_right(leader_row, leader_column, follower_row, follower_column):
             if leader_column - follower_column > 1 or abs(leader_row - follower_row) > 1:
@@ -184,12 +189,14 @@ class Solution(object):
 
 class TestCase(unittest.TestCase):
 
-    def test_dev_0(self):
-        self.assertEqual(1, Solution().fuction(file_name="09_input_test.txt", board_number_of_rows=5, board_row_length=6,
-                                               starting_point_row=4, starting_point_column=0))
+    # def test_dev_0(self):
+    #     self.assertEqual(1, Solution().fuction(file_name="09_input_test.txt", board_number_of_rows=5, board_row_length=6,
+    #                                            starting_point_row=4, starting_point_column=0))
 
-    # def test_dev_1(self):
-    #     self.assertEqual(36, Solution().fuction("09_input_test_2.txt", 20))
-    #
+    def test_dev_1(self):
+        self.assertEqual(36, Solution().fuction(file_name="09_input_test_2.txt", board_number_of_rows=21,
+                                                board_row_length=26,
+                                                starting_point_row=15, starting_point_column=11))
+
     # def test_prod(self):
     #     self.assertEqual(6181, Solution().fuction("09_input.txt", 1000))
